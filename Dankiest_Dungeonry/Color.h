@@ -27,6 +27,7 @@
 #pragma once
 #include <Windows.h>
 #include <stack>
+#include <string>
 
 #include "WinConsole.h"
 
@@ -52,116 +53,36 @@ namespace jinxes
 	const Color BRIGHT_YELLOW = 0xE;
 	const Color BRIGHT_WHITE  = 0xF;
 
-	// The stack of colors to be applied to the output stream.
-	// Modify at your own risk.
-	static std::stack<Color> COLOR_STACK;
-
-	// The stack of background colors to be applied to the
-	// output stream. Modify at your own risk.
-	static std::stack<Color> BACKGROUND_STACK;
-
-	// A dummy struct for applying colors to the output stream.
-	// End users should avoid using this structure.
-	struct __stream_operator__ {};
-
-	// Allows for the push_color and push_background_color functions to be applied to the stream, similar
-	// to the stream formatting functions in ios.h.
-	inline std::ostream& operator<<(std::ostream& stream, __stream_operator__& colorization)
+	// Defines a colored text segment.
+	class set_color
 	{
-		// Grab the foreground and background from the stacks.
-		Color fore;
-		Color back;
+	private:
+		std::string _text;
+		Color _color;
+		Color _background;
+	public:
+		// Create a segment of colored text.
+		set_color(std::string text, Color color, Color background = BLACK) : _text(text), _color(color), _background(background) {}
 
-		if (COLOR_STACK.empty())
+		// Allows for colored text to be output to the standard output stream.
+		inline friend std::ostream& operator <<(std::ostream& stream, set_color& text)
 		{
-			fore = WHITE;
+			// Put the background into the upper nibble of the color byte.
+			Color stitched_color = text._color | (text._background << 4);
+
+			// Save the output color.
+			Color previous_color = WinConsole::CurrentTextAttributes();
+
+			// Change the output color.
+			SetConsoleTextAttribute(WinConsole::StandardOutput(), stitched_color);
+
+			// Output the actual text.
+			stream << text._text;
+
+			// Reset the colors.
+			SetConsoleTextAttribute(WinConsole::StandardOutput(), previous_color);
+
+			return stream;
 		}
-		else
-		{
-			fore = COLOR_STACK.top();
-		}
-
-		if (BACKGROUND_STACK.empty())
-		{
-			back = BLACK;
-		}
-		else
-		{
-			back = BACKGROUND_STACK.top();
-		}
-
-		// Build the full color byte from the background and foreground.
-		Color full_color_def = fore | (back << 4);
-
-		// Colorize the stream.
-		SetConsoleTextAttribute(WinConsole::StandardOutput(), full_color_def);
-
-		return stream;
-	}
-
-	// Changes the foreground color of the standard output.
-	__stream_operator__ push_color(Color foreground)
-	{
-		// Put on the color.
-		COLOR_STACK.push(foreground);
-
-		return __stream_operator__{};
-	}
-
-	// Returns the foreground color of the standard output to
-	// its state prior to the most recent push_color call.
-	// To get the color popped from the stream, set popped to
-	// a non-null value.
-	__stream_operator__ pop_color(Color* popped = nullptr)
-	{
-		// Return the color if we were asked to do so.
-		if (popped != nullptr)
-		{
-			if (COLOR_STACK.empty())
-			{
-				*popped = WHITE;
-			}
-
-			*popped = COLOR_STACK.top();
-		}
-
-		// Take off the color.
-		if (!COLOR_STACK.empty())
-			COLOR_STACK.pop();
-
-		return __stream_operator__{};
-	}
-
-	// Changes the background color of the standard output.
-	__stream_operator__ push_background_color(Color background)
-	{
-		// Put on the color.
-		BACKGROUND_STACK.push(background);
-
-		return __stream_operator__{};
-	}
-
-	// Returns the foreground color of the standard output to
-	// its state prior to the most recent push_color call.
-	// To get the color popped from the stream, set popped to
-	// a non-null value.
-	__stream_operator__ pop_background_color(Color* popped = nullptr)
-	{
-		// Return the color if we were asked to do so.
-		if (popped != nullptr)
-		{
-			if (BACKGROUND_STACK.empty())
-			{
-				*popped = BLACK;
-			}
-
-			*popped = BACKGROUND_STACK.top();
-		}
-
-		// Take off the color.
-		if (!BACKGROUND_STACK.empty())
-		BACKGROUND_STACK.pop();
-
-		return __stream_operator__{};
-	}
+	};
 }

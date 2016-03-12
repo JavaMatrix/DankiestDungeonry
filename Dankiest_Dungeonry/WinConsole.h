@@ -80,6 +80,14 @@ namespace jinxes
 			GetConsoleScreenBufferInfo(StandardOutput(), &info);
 			return (info.wAttributes & MASK_BACKGROUND) >> SHIFT_BACKGROUND;
 		}
+
+		// A safe way to access the console's current text state.
+		static WORD CurrentTextAttributes()
+		{
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			GetConsoleScreenBufferInfo(StandardOutput(), &info);
+			return info.wAttributes;
+		}
 	};
 
 	// Either a handle to the standard input or null

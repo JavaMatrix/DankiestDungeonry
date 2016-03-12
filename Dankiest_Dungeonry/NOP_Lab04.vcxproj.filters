@@ -128,6 +128,8 @@
     <None Include="Monsters.yaml" />
     <None Include="LootTables.yaml" />
     <None Include="I18n.yaml" />
+    <None Include="..\LICENSE" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Armors.yaml" />
