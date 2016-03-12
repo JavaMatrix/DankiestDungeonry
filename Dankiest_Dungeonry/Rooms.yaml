@@ -1,0 +1,46 @@
+# Definitions for the rooms in the game. You can edit this to add more levels.
+field:
+ description: a large clearing
+ monsters:
+ - type: annoyed-bull
+   count: 2
+ - type: evil-turkey
+   count: 3
+ exits:
+ - direction: to the west
+   to: dense-woods
+
+dense-woods:
+ description: a dark and densely forested wood
+ monsters:
+ - type: chickadeevil
+   count: 4
+ - type: wargle
+   count: 4
+ exits:
+ - direction: to the east
+   to: field
+ - direction: to the north
+   to: castle
+
+castle:
+ description: a massive castle, heavily guarded by monsters
+ monsters:
+ - type: justice-knight
+   count: 10
+ - type: parrot-buccaneer
+   count: 10
+ exits:
+ - direction: to the south
+   to: dense-woods
+ - direction: through the gate
+   to: throne-room
+
+throne-room:
+ description: a massive throne room with its ceiling held up by giant granite pillars
+ monsters:
+ - type: boss
+   count: 1
+ exits:
+  direction: back through the gate
+  to: castle

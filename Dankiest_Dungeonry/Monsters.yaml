@@ -1,0 +1,106 @@
+annoyed-bull:
+ description: a bull that is annoyed by your presence
+ plural: a mob of %d annoyed bulls
+ short: annoyed bull
+ attack-hit-text: ignores you painfully
+ attack-miss-text: accidentally acknowledges you
+ damaged-text: huffs in annoyance
+ death-text: gets so annoyed it explodes into confetti
+ damage:
+  dice: 1
+  sides: 6
+ health: 10
+ armor: 0
+ max-drop-level: 1
+
+# Inspired by http://buttersafe.com/2007/11/22/three-depressing-stories-about-turkeys/
+evil-turkey:
+ description: a turkey consumed and defined by darkness and shadow
+ plural: a flock of %d darkness turkeys
+ short: darkness turkey
+ attack-hit-text: frightens you with its terrible gobble
+ attack-miss-text: tries to roar, but squeaks instead
+ damaged-text: just keeps gobbling villainously
+ death-text: dissolves into ash
+ damage:
+  dice: 1
+  sides: 1
+ health: 4
+ armor: 0
+ max-drop-level: 1
+
+wargle:
+ description: an incredibly large waffle with glowing red eyes
+ plural: a pack of %d terrifying waffle-beasts
+ short: wargle
+ attack-hit-text: gets you all sticky
+ attack-miss-text: gets the trees all sticky, but misses you
+ damaged-text: screams as you bite a chunk out of its delicious flesh
+ death-text: is shocked by your actions and runs away into the unknown
+ damage:
+  dice: 1
+  sides: 10
+ health: 60
+ armor: 2
+ max-drop-level: 2
+
+chickadeevil:
+ description: a robotic chickadee with malevolent programming
+ plural: a flock of %d cybertronic chickadees
+ short: cyborg chickadee
+ attack-hit-text: burns you with its laser vision
+ attack-miss-text: is distracted by a cyborg worm
+ damaged-text: screeches in disbelief, "496620796f752063616e207265616420746869732c2049206f776520796f75206120636f666665652e"
+ death-text: explodes in a fireball so large you must suspend disbelief
+ damage: 
+  dice: 2
+  sides: 6
+ health: 48
+ armor: 4
+ programmer-thinking-about-pizza: yes
+ max-drop-level: 2
+
+justice-knight:
+ description: a knight who loves justice a lot
+ plural: a squad of %d justice knights
+ short: justice knight
+ attack-hit-text: justiced you very hard in the head
+ attack-miss-text: gave a lecture on justice and forgot to attack you
+ damaged-text: carefully cradles his damaged justice
+ death-text: cries out, "JUSTICE!", then dies
+ damage:
+  dice: 2
+  sides: 12
+ health: 120
+ armor: 20
+ max-drop-level: 3
+
+parrot-buccaneer:
+ description: a four-story parrot with a pirate on its shoulder
+ plural: a flock of %d parrot buccaneers
+ short: parrot buccaneer
+ attack-hit-text: attacked you with the chainsaw on its right hand
+ attack-miss-text: allowed its two eyepatches to affect its aim
+ damaged-text: goes crackers
+ death-text: is dead! The Dread Pirate Nobeard has been freed
+ damage:
+  dice: 1
+  sides: 20
+ health: 300
+ armor: 5
+ max-drop-level: 3
+
+boss:
+ description: EMPEROR ROTHNAR ULGARON, FEASTER OF DARKNESS, a chipmunk in 98 foot tall robotic battle armor that makes his head look tiny
+ short: EMPEROR ROTHNAR ULGARON, CHIPMUNK OF DARKNESS
+ plural: EMPEROR ROTHNAR ULGARON, CHIPMUNK OF DARKNESS
+ attack-hit-text: destroys you with his utterly cute but also frightening attack
+ attack-miss-text: is distracted by an acorn and stuffs it in his cheeks instead of attacking
+ damaged-text: almost loses his balance
+ death-text: topples over and his suit explodes so much that it pops every kernel of corn in a mile radius. He runs off to fight another day
+ damage:
+  dice: 5
+  sides: 20
+ health: 500
+ armor: 100
+ max-drop-level: 3

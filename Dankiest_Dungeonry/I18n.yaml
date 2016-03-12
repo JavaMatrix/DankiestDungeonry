@@ -1,0 +1,120 @@
+# This file contains all string literals for the game. Edit it to translate or tweak text.
+# Warning: This file may contain spoilers.
+intro-text: Once upon a time, in a dungeon deep, deep underground
+ellipsis: ...
+copywrong: Copywrong 1977 Defenestration Coding, Uncorporated
+
+# We have to use \c for colons and \s for spaces because this is how simplyaml does escaping.
+help-header: Commands\c
+help-help: \s\sHelp\c Displays this help menu
+fight-help: \s\sFight\c Attack the monster that you are currently in battle with, or start a battle with a random enemy. Use "auto fight" to auto-battle every monster in the room. This cannot be aborted once started, so use care.
+go-help: \s\sGo (where)\c Move to a new area in the direction you specified, i.e. go north.
+take-help: \s\sTake\c pick an item off of the ground and put it in your bag.
+drop-help: \s\sDrop (slot)\c drop the item in the given slot onto the ground.
+use-help: \s\sUse (slot)\c use the item in the given slot (swig a potion, cast a spell, etc).
+inventory-help: \s\sInventory\c look at the items in your inventory.
+check-help: \s\sCheck\c take a look at your surroundings, your enemy, and yourself.
+equip-help: \s\sEquip\c equip an item from your inventory.
+clear-help: \s\sClear\c clear the screen
+exit-help: \s\sExit\c exit the game.
+
+invalid-command: I'm sorry, but I didn't understand that.
+no-i18n: No translations found.
+
+inventory-full: Your inventory is full. Drop something before you try to pick anything else up.
+inventory-no-item: There is no item in slot %d.
+inventory-non-equippable: You can't equip that %s. Try using it instead.
+inventory-header: Inventory\c
+
+armor-use: You aren't sure how to "use" armor. Maybe you want to "equip" it?
+armor-suffix-0: of Failure
+armor-suffix-1: of Luck
+armor-suffix-2: of Fortune
+armor-suffix-3: of Strength
+armor-suffix-4: of Valor
+armor-suffix-5: of Kings
+armor-suffix-6: of Splendor
+armor-suffix-7: of Deities
+armor-suffix-8: of Destiny
+armor-suffix-9: of Infinity
+
+super-weapon: The Ziltig H'tennek Rossefforp Omega
+weapon-use: You raise the weapon in the air, impressing absolutely no-one. Perhaps you should "equip" it, then "fight" with it?
+
+# Thanks to http://uncyclopedia.wikia.com/wiki/List_of_weapons_that_don't_exist,_but_should for
+# helping me with many of these weapon names, and to Monty Python's self-defense class skit
+# for the first one.
+weapon-0: Point-ed Stick
+weapon-1: Chainsock
+weapon-2: Big Rock
+weapon-3: Friendly Raptor
+weapon-4: Molotov Hamster
+
+at: at
+
+you-are-in: You are in
+there-is: There is
+there-are: There are
+a: a
+monster-damage: The %s %s!
+monster-death: The %s %s! You have defeated the %s!
+on-ground: lying on the ground here
+here: here
+no-monsters: There are no more monsters here. You are free to leave the area.
+
+fight-new: You attack
+player-hit: You hit the %s for %d damage!
+player-miss: You miss the %s!
+player-damaged: You have taken %d damage!
+player-blocked: You managed to block the %s's attack!
+player-died: You fall flat on your face and don't get up.
+game-over: GAME OVER
+monster-miss: The %s %s.
+monster-hit: The %s %s!
+monster-blocked: The %s managed to block your attack!
+item-drop: The %s dropped a %s.
+many-drop: The %s dropped %d %ss.
+no-exit: There is no exit in that direction.
+go-where: Go where?
+exit-desc: \%s, there is %s.
+fight-all: You must defeat all of the monsters here before you can move on.
+keep-fighting-prompt: Press Enter to keep fighting, or any other key to abort.
+
+take-prompt: What will you take (say "done" to stop taking things)? 
+taken: You picked up a %s.
+taken-many: You picked up %d %s.
+take-fail: You can't take that.
+
+drop-prompt: What will you drop?
+dropped: You dropped a %s.
+drop-fail: You can't drop that.
+
+use-prompt: What will you use?
+use-fail: You can't use that.
+heal: You swig the %s, gaining %d HP. You now have %d HP.
+crit-heal: The spell enhances your enjoyment of the strawberry-flavored %s! You are critically healed for %d HP! You now have %d HP.
+
+spell-use: Energy surges through your body! Your next attack will do much more damage!
+spell-fail: You have already been buffed by a spell!
+
+equip-prompt: What will you equip?
+equip-fail: You can't equip that.
+equip-success: Item equipped.
+
+enemy-check: You are facing %s. It has %d HP remaining and %d Armor. Its damage is %s.
+
+game-win: You have defeated the final boss and cleared the game! Want more? You can edit the game's data yourself! Try adding your own levels and monsters!
+
+reload-success: All files reloaded. Monster changes will not be reflected until you fight the next monster. Room changes will not be reflected until you move to a new room.
+
+command-scream: In DOS, nobody can hear you scream.
+command-xyzzy: Nothing happens.
+command-odysseus: Unfortunately, there are no cyclopes around to scare.
+command-ping: Pong.
+command-doof: Doofenschmirtz Evil Incorporated!
+command-steven: I didn't know you were in this game!
+command-open-pod-bay-doors: I'm sorry Dave. I'm afraid I can't do that.
+command-test: Testing!
+command-: \s
+command-madu: That's SIR MADU to you!
+command-victor: The first winner of this game was the fabled SIR MADU, WAFFLE EATER RENOWN!

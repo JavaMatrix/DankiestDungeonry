@@ -1,0 +1,70 @@
+# Defines the loot tables for the game.
+loot-table-count: 3
+level-1:
+ potion-max: 1
+ spell-max: 1
+ weighted-max: 1
+ drops:
+ - type: armor
+   weight: 20
+   name: Silly Hat
+ - type: armor
+   weight: 10
+   name: Sandals and Socks
+ - type: armor
+   weight: 5
+   name: Polka-Dotted Magical Ring
+ - type: armor
+   weight: 1
+   name: Truthy Helmet
+ - type: weapon
+   weight: 36
+   damage:
+    dice-min: 1
+    dice-max: 2
+
+level-2:
+ potion-max: 4
+ spell-max: 4
+ weighted-max: 1
+ drops:
+ - type: armor
+   weight: 20
+   name: Foolhardy Breastplate
+ - type: armor
+   weight: 10
+   name: Sentient Bandanna
+ - type: armor
+   weight: 5
+   name: Enchanted Tunic That Talks
+ - type: armor
+   weight: 1
+   name: Dogly Armor
+ - type: weapon
+   weight: 36
+   damage:
+    dice-min: 2
+    dice-max: 4
+
+level-3:
+ potion-max: 9
+ spell-max: 9
+ weighted-max: 1
+ drops:
+ - type: armor
+   weight: 20
+   name: Titan Belt
+ - type: armor
+   weight: 10
+   name: Rusty Hand Warmers
+ - type: armor
+   weight: 5
+   name: Unladen European Swallow
+ - type: armor
+   weight: 1
+   name: Professor Gitlitz Mask
+ - type: weapon
+   weight: 36
+   damage:
+    dice-min: 5
+    dice-max: 10

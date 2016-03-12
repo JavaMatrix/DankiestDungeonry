@@ -1,0 +1,66 @@
+# The list of armors and their values. You can edit this to add more armors.
+armor-list:
+- name: Ugly Sweater
+  value: 0
+- name: Silly Hat
+  value: 10
+- name: Sandals and Socks
+  value: 20
+- name: Polka-Dotted Magical Ring
+  value: 30
+- name: Truthy Helmet
+  value: 40
+- name: Foolhardy Breastplate
+  value: 50
+- name: Sentient Bandanna
+  value: 60
+- name: Enchanted Tunic That Talks
+  value: 70
+- name: Dogly Armor
+  value: 80
+- name: Titan Belt
+  value: 90
+- name: Rusty Hand Warmers
+  value: 100
+- name: Unladen European Swallow
+  value: 110
+- name: Professor Gitlitz Mask
+  value: 120
+- name: iPhone 74C
+  value: 130
+- name: Physics Textbook
+  value: 140
+- name: GUD ARMUR
+  value: 150
+- name: Dank Memes
+  value: 160
+- name: Doge Picture
+  value: 170
+- name: Poptart Cat
+  value: 180
+- name: Ninja
+  value: 190
+- name: Determination
+  value: 200
+- name: Who Needs Armor
+  value: 250
+- name: Bell-shaped Taco
+  value: 300
+- name: Skin Hardener
+  value: 350
+- name: Bucket Hat
+  value: 400
+- name: High-Security Laser Grid
+  value: 450
+- name: HDTV
+  value: 500
+- name: Youtube Commenter
+  value: 600
+- name: Meat
+  value: 700
+- name: Ghoughpteighbteau Tchogs
+  value: 800
+- name: Spaghetti Hat
+  value: 900
+- name: Fish with Chin Strap
+  value: 1000
