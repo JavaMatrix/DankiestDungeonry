@@ -38,5 +38,9 @@ public:
 	int damage(int dealt);
 	int attack();
 	void heal(int& amount);
+	CArmor armor();
+	CWeapon weapon();
+	int count_spells();
+	int count_potions();
 };
 

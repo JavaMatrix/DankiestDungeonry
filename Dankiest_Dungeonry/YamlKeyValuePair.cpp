@@ -94,6 +94,14 @@ bool YamlKeyValuePair::parse(string* lines, int numLines)
 		idx = _value.find("\\%");
 	}
 
+	// \* = * for beginning of string
+	idx = _value.find("\\*");
+	while (idx != string::npos)
+	{
+		_value = _value.replace(idx, 2, "*");
+		idx = _value.find("\\*");
+	}
+
 	// Successfully parsed!
 	return true;
 }

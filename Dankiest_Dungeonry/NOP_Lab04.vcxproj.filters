@@ -122,6 +122,9 @@
     <ClInclude Include="Color.h">
       <Filter>Jinxes</Filter>
     </ClInclude>
+    <ClInclude Include="SpecialChars.h">
+      <Filter>Jinxes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rooms.yaml" />

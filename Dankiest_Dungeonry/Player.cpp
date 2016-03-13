@@ -162,3 +162,43 @@ void Player::heal(int& amount)
 		_health = PLAYER_MAX_HEALTH;
 	}
 }
+
+CArmor Player::armor()
+{
+	return _equipped_armor;
+}
+
+CWeapon Player::weapon()
+{
+	return _equipped_weapon;
+}
+
+int Player::count_spells()
+{
+	int count = 0;
+
+	for each (CGameItem* item in _inventory)
+	{
+		if (dynamic_cast<CSpell*>(item) != nullptr)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+int Player::count_potions()
+{
+	int count = 0;
+
+	for each (CGameItem* item in _inventory)
+	{
+		if (dynamic_cast<CSpell*>(item) != nullptr)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
