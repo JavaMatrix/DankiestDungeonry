@@ -35,12 +35,15 @@ namespace jinxes
 	private:
 		static HANDLE _stdin;
 		static HANDLE _stdout;
+		static COORD _cursor_home;
+		static bool _cursor_at_home;
 
 		static const WORD MASK_FOREGROUND = 0x0F;
 		static const WORD MASK_BACKGROUND = 0xF0;
 
 		static const WORD SHIFT_FOREGROUND = 0x4;
 		static const WORD SHIFT_BACKGROUND = 0x0;
+
 	public:
 		// This function represents a safe way to obtain access to the
 		// Windows input stream. End users of the library should avoid this function.
@@ -88,6 +91,47 @@ namespace jinxes
 			GetConsoleScreenBufferInfo(StandardOutput(), &info);
 			return info.wAttributes;
 		}
+
+		// A safe way to move the console cursor.
+		static void MoveCursorTo(SHORT x, SHORT y)
+		{
+			if (_cursor_at_home)
+			{
+				CONSOLE_SCREEN_BUFFER_INFO info;
+				GetConsoleScreenBufferInfo(StandardOutput(), &info);
+				_cursor_home = info.dwCursorPosition;
+			}
+
+			SetConsoleCursorPosition(StandardOutput(), { x, y });
+			
+			_cursor_at_home = false;
+		}
+
+		// A safe way to move the cursor back to its home position.
+		static void ReturnCursorToHome()
+		{
+			if (_cursor_at_home) return;
+
+			SetConsoleCursorPosition(StandardOutput(), _cursor_home);
+
+			_cursor_at_home = true;
+		}
+
+		// A safe way to determine the width of the screen.
+		static SHORT GetWidth()
+		{
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			GetConsoleScreenBufferInfo(StandardOutput(), &info);
+			return info.dwSize.X;
+		}
+
+		// A safe way to determine the height of the screen.
+		static SHORT GetHeight()
+		{
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			GetConsoleScreenBufferInfo(StandardOutput(), &info);
+			return info.dwSize.Y;
+		}
 	};
 
 	// Either a handle to the standard input or null
@@ -97,4 +141,7 @@ namespace jinxes
 	// Either a handle to the standard output or null
 	// if the handle hasn't been fetched yet.
 	HANDLE WinConsole::_stdout = nullptr;
+
+	// The cursor starts at its home position.
+	bool WinConsole::_cursor_at_home = true;
 }

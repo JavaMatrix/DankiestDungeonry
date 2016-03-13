@@ -88,7 +88,7 @@
     <ClCompile Include="CWeapon.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="I18n.cpp" />
-    <ClCompile Include="ItemTester.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="LootTables.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />

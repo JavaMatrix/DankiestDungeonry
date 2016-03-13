@@ -31,27 +31,30 @@
 
 #include "WinConsole.h"
 
-typedef WORD Color;
 
 namespace jinxes
 {
+	typedef WORD Color;
 
-	const Color BLACK         = 0x0;
-	const Color BLUE          = 0x1;
-	const Color GREEN         = 0x2;
-	const Color AQUA          = 0x3;
-	const Color RED           = 0x4;
-	const Color PURPLE        = 0x5;
-	const Color YELLOW        = 0x6;
-	const Color WHITE         = 0x7;
-	const Color GREY          = 0x8;
-	const Color BRIGHT_BLUE   = 0x9;
-	const Color BRIGHT_GREEN  = 0xA;
-	const Color BRIGHT_AQUA   = 0xB;
-	const Color BRIGHT_RED    = 0xC;
-	const Color BRIGHT_PURPLE = 0xD;
-	const Color BRIGHT_YELLOW = 0xE;
-	const Color BRIGHT_WHITE  = 0xF;
+	namespace Colors
+	{
+		const Color BLACK         = 0x0;
+		const Color BLUE          = 0x1;
+		const Color GREEN         = 0x2;
+		const Color AQUA          = 0x3;
+		const Color RED           = 0x4;
+		const Color PURPLE        = 0x5;
+		const Color YELLOW        = 0x6;
+		const Color WHITE         = 0x7;
+		const Color GREY          = 0x8;
+		const Color BRIGHT_BLUE   = 0x9;
+		const Color BRIGHT_GREEN  = 0xA;
+		const Color BRIGHT_AQUA   = 0xB;
+		const Color BRIGHT_RED    = 0xC;
+		const Color BRIGHT_PURPLE = 0xD;
+		const Color BRIGHT_YELLOW = 0xE;
+		const Color BRIGHT_WHITE  = 0xF;
+	}
 
 	// Defines a colored text segment.
 	class set_color
@@ -62,7 +65,7 @@ namespace jinxes
 		Color _background;
 	public:
 		// Create a segment of colored text.
-		set_color(std::string text, Color color, Color background = BLACK) : _text(text), _color(color), _background(background) {}
+		set_color(std::string text, Color color, Color background = Colors::BLACK) : _text(text), _color(color), _background(background) {}
 
 		// Allows for colored text to be output to the standard output stream.
 		inline friend std::ostream& operator <<(std::ostream& stream, set_color& text)

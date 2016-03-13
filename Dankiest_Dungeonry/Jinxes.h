@@ -27,3 +27,4 @@
 #pragma once
 #include "WinConsole.h"
 #include "Color.h"
+#include "SpecialChars.h"

@@ -3,6 +3,8 @@
 #include "Player.h"
 class Game
 {
+public:
+	static const int SIZE_FULLSCREEN = 224;
 private:
 	Room _curr_room;
 	Player _player;
@@ -12,6 +14,7 @@ private:
 	void dramaType(string message, int delay = 100, bool newLine = true, double freq = 130.81);
 	void fight();
 	void take();
+	void drawHealthBar();
 public:
 	Game();
 	void start();
