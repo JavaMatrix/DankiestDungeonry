@@ -4,6 +4,7 @@
 #include <map>
 #include "SimpleYaml.h"
 #include "Monster.h"
+#include "CGameItem.h"
 
 class Room
 {
@@ -23,7 +24,7 @@ public:
 	Room() {}
 	Room(std::string name);
 	Room exit(std::string direction);
-	std::string describeRoom();
+	void describeRoom();
 	Monster pop_monster();
 	bool has_more_monsters();
 	bool operator==(Room& other);

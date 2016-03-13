@@ -113,9 +113,6 @@
     <ClInclude Include="Utils.h">
       <Filter>SimpleYaml\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Jinxes.h">
-      <Filter>Jinxes</Filter>
-    </ClInclude>
     <ClInclude Include="WinConsole.h">
       <Filter>Jinxes</Filter>
     </ClInclude>

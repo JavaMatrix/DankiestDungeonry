@@ -2,13 +2,17 @@
 
 #include <string>
 #include <algorithm>
-#include <sstream>
+#include <iostream>
 
 #include "SimpleYaml.h"
+#include "Color.h"
+
 #include "I18n.h"
 #include "Utils.h"
 
+using namespace std;
 using namespace simpleyaml;
+using namespace jinxes;
 
 const string Room::ROOM_DEFS_FILE_NAME= "Rooms.yaml";
 IYamlEntity* Room::ROOM_DEFS = nullptr;
@@ -61,9 +65,8 @@ Room::Room(string name)
 	}
 }
 
-string Room::describeRoom()
+void Room::describeRoom()
 {
-
 	if (ROOM_DEFS == nullptr)
 	{
 		bool err;
@@ -72,8 +75,7 @@ string Room::describeRoom()
 			cerr << "ERROR: Couldn't load room definitions. Game will likely crash." << endl;
 	}
 
-	stringstream ss;
-	ss << I18n::Translate("you-are-in") << " " << _description << "." << endl;
+	cout << I18n::Translate("you-are-in") << " " << _description << "." << endl;
 
 	map<string, int> monster_counts;
 	map<string, Monster> monster_samples;
@@ -88,20 +90,20 @@ string Room::describeRoom()
 
 	for each (pair<string, int> kvp in monster_counts)
 	{
-		ss << I18n::Translate("there-is");
+		cout << I18n::Translate("there-is");
 		if (kvp.second > 1)
 		{
-			// Ex. a flock of 25 cyborg chickadees 
+			// Ex. a flock of 25 cyborg chickadees
 			char multipleDescription[256];
 			sprintf_s(multipleDescription, monster_samples[kvp.first].text()[Monster::PLURAL].c_str(), kvp.second);
-			ss << " " << multipleDescription;
+			cout << " " << set_color(multipleDescription, Colors::RED);
 		}
 		else
 		{
 			// Ex. a robotic chickadee with malevolent programming
-			ss << " " << monster_samples[kvp.first].text()[Monster::DESCRIPTION];
+			cout << " " << set_color(monster_samples[kvp.first].text()[Monster::DESCRIPTION], Colors::RED);
 		}
-		ss << " " << I18n::Translate("here") << "." << endl;
+		cout << " " << I18n::Translate("here") << "." << endl;
 	}
 
 	// Describe ground items.
@@ -112,31 +114,31 @@ string Room::describeRoom()
 		else if (dynamic_cast<CPotion*>(item_ptr) != nullptr) pots++;
 		else
 		{
-			ss << I18n::Translate("there-is") << " " << I18n::Translate("a") << " "
-				<< item_ptr->description() << " " << I18n::Translate("on-ground") << "." << endl;
+			cout << I18n::Translate("there-is") << " " << I18n::Translate("a") << " "
+				<< set_color(item_ptr->description(), Colors::AQUA) << " " << I18n::Translate("on-ground") << "." << endl;
 		}
 	}
 	if (pots > 0)
 	{
 		if (pots > 1)
-			ss << I18n::Translate("there-are") << " " << pots;
+			cout << I18n::Translate("there-are") << " " << pots;
 		else
-			ss << I18n::Translate("there-is") << " " << I18n::Translate("a");
-		ss << " " << CPotion().description();
+			cout << I18n::Translate("there-is") << " " << I18n::Translate("a");
+		cout << " " << set_color(CPotion().description(), Colors::PURPLE);
 		if (pots > 1)
-			ss << "s";
-		ss << " " << I18n::Translate("on-ground") << "." << endl;
+			cout << set_color("s", Colors::PURPLE);
+		cout << " " << I18n::Translate("on-ground") << "." << endl;
 	}
 	if (spells > 0)
 	{
 		if (spells > 1)
-			ss << I18n::Translate("there-are") << " " << spells;
+			cout << I18n::Translate("there-are") << " " << spells;
 		else
-			ss << I18n::Translate("there-is") << " " << I18n::Translate("a");
-		ss << " " << CSpell().description();
+			cout << I18n::Translate("there-is") << " " << I18n::Translate("a");
+		cout << " " << set_color(CSpell().description(), Colors::YELLOW);
 		if (spells > 1)
-			ss << "s";
-		ss << " " << I18n::Translate("on-ground") << "." << endl;
+			cout << set_color("s", Colors::YELLOW);
+		cout << " " << I18n::Translate("on-ground") << "." << endl;
 	}
 
 	// Describe exits.
@@ -146,10 +148,8 @@ string Room::describeRoom()
 		string room_name = (*(*ROOM_DEFS)[exit.second])["description"]->value();
 		exit.first[0] = toupper(exit.first[0]);
 		sprintf_s(ex_msg, I18n::Translate("exit-desc").c_str(), exit.first.c_str(), room_name.c_str());
-		ss << ex_msg << endl;
+		cout << ex_msg << endl;
 	}
-
-	return ss.str();
 }
 
 Room Room::exit(std::string direction)

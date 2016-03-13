@@ -8,11 +8,11 @@
 #include <algorithm>
 
 #include "SimpleYaml.h"
-#include "Jinxes.h"
+#include "Color.h"
+#include "SpecialChars.h"
+#include "WinConsole.h"
 
 #include "I18n.h"
-#include "CArmor.h"
-#include "Player.h"
 #include "LootTables.h"
 #include "Utils.h"
 
@@ -65,7 +65,7 @@ void Game::start()
 	_curr_room = Room("field");
 
 	print_help();
-	dramaType(_curr_room.describeRoom(), 10, true, 0);
+	_curr_room.describeRoom();
 }
 
 void Game::dramaType(string message, int delay, bool newLine, double freq)
@@ -237,7 +237,7 @@ bool Game::loop()
 		// Clear the screen.
 		system("cls");
 
-		cout << _curr_room.describeRoom() << endl;
+		_curr_room.describeRoom();
 		return true;
 	}
 	else if (starts_with(action, "drop"))
@@ -306,7 +306,7 @@ bool Game::loop()
 	}
 	else if (starts_with(action, "check"))
 	{
-		cout << _curr_room.describeRoom() << endl;
+		_curr_room.describeRoom();
 		cout << endl;
 		cout << "HP: " << _player.health() << endl;
 		_player.print_inventory();

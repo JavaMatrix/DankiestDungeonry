@@ -1,14 +1,3 @@
-/*
-* CGameItem.h
-*----------------------------------------------------
-* Definition of item class and all derived classes.
-*
-* The student should add derived class definitions here.
-*
-*/
-
-
-
 #pragma once
 #include <iostream>
 #include <string>

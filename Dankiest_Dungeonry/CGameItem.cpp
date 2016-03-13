@@ -1,10 +1,4 @@
-/*
-* CGameItem.cpp
-* ---------------------------------------------
-* Implementation for items
-*
-*/
-
+#pragma once
 #include "CGameItem.h"
 #include "I18n.h"
 #include "Game.h"
@@ -78,10 +72,3 @@ bool CPotion::use()
 
 	return true;
 }
-
-
-
-
-
-
-
