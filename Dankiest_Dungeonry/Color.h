@@ -92,7 +92,7 @@ namespace jinxes
 		}
 	};
 
-	void set_color_all(Color color, Color background = Colors::BLACK)
+	inline void set_color_all(Color color, Color background = Colors::BLACK)
 	{
 		// Put the background into the upper nibble of the color byte.
 		Color stitched_color = color | (background << 4);
@@ -101,7 +101,7 @@ namespace jinxes
 		SetConsoleTextAttribute(WinConsole::StandardOutput(), stitched_color);
 	}
 
-	void reset_color_all()
+	inline void reset_color_all()
 	{
 		// Change the output color to white on black.
 		SetConsoleTextAttribute(WinConsole::StandardOutput(), 0x07);
