@@ -32,8 +32,8 @@ namespace jinxes
 
 		namespace DoubleBorder
 		{
-			char HorizontalSide = -70;
-			char VerticalSide = -51;
+			char HorizontalSide = -51;
+			char VerticalSide = -70;
 			char TopLeftCorner = -55;
 			char TopRightCorner = -69;
 			char BottomRightCorner = -68;

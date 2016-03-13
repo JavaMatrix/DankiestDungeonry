@@ -95,14 +95,15 @@ namespace jinxes
 		// A safe way to move the console cursor.
 		static void MoveCursorTo(SHORT x, SHORT y)
 		{
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			GetConsoleScreenBufferInfo(StandardOutput(), &info);
+
 			if (_cursor_at_home)
 			{
-				CONSOLE_SCREEN_BUFFER_INFO info;
-				GetConsoleScreenBufferInfo(StandardOutput(), &info);
 				_cursor_home = info.dwCursorPosition;
 			}
 
-			SetConsoleCursorPosition(StandardOutput(), { x, y });
+			SetConsoleCursorPosition(StandardOutput(), { x + info.srWindow.Left, y +info.srWindow.Top });
 			
 			_cursor_at_home = false;
 		}
@@ -144,4 +145,7 @@ namespace jinxes
 
 	// The cursor starts at its home position.
 	bool WinConsole::_cursor_at_home = true;
+
+	// We'll assume the cursor starts at 0, 0. (It doesn't, but it doesn't matter)
+	COORD WinConsole::_cursor_home = { 0, 0 };
 }

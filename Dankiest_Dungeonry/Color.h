@@ -67,6 +67,9 @@ namespace jinxes
 		// Create a segment of colored text.
 		set_color(std::string text, Color color, Color background = Colors::BLACK) : _text(text), _color(color), _background(background) {}
 
+		// Create a colored character.
+		set_color(char text, Color color, Color background = Colors::BLACK) : _text(string(1, text)), _color(color), _background(background) {} 
+
 		// Allows for colored text to be output to the standard output stream.
 		inline friend std::ostream& operator <<(std::ostream& stream, set_color& text)
 		{
@@ -88,4 +91,19 @@ namespace jinxes
 			return stream;
 		}
 	};
+
+	void set_color_all(Color color, Color background = Colors::BLACK)
+	{
+		// Put the background into the upper nibble of the color byte.
+		Color stitched_color = color | (background << 4);
+
+		// Change the output color.
+		SetConsoleTextAttribute(WinConsole::StandardOutput(), stitched_color);
+	}
+
+	void reset_color_all()
+	{
+		// Change the output color to white on black.
+		SetConsoleTextAttribute(WinConsole::StandardOutput(), 0x07);
+	}
 }
