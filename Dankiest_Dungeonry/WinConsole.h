@@ -33,10 +33,30 @@ namespace jinxes
 	class WinConsole
 	{
 	private:
-		static HANDLE _stdin;
-		static HANDLE _stdout;
-		static COORD _cursor_home;
-		static bool _cursor_at_home;
+		// hacky static variables, basically singletons
+
+		static HANDLE& _stdin()
+		{
+			static HANDLE _val = nullptr;
+			return _val;
+		}
+
+		static HANDLE& _stdout()
+		{
+			static HANDLE _val = nullptr;
+			return _val;
+		}
+	
+		static COORD& _cursor_home()
+		{
+			static COORD _val = { 0, 0 };
+			return _val;
+		}
+		static bool& _cursor_at_home()
+		{
+			static bool _val = true;
+			return _val;
+		}
 
 		static const WORD MASK_FOREGROUND = 0x0F;
 		static const WORD MASK_BACKGROUND = 0xF0;
@@ -49,22 +69,22 @@ namespace jinxes
 		// Windows input stream. End users of the library should avoid this function.
 		inline static HANDLE& StandardInput()
 		{
-			if (_stdin == nullptr)
+			if (_stdin() == nullptr)
 			{
-				_stdin = GetStdHandle(STD_INPUT_HANDLE);
+				_stdin() = GetStdHandle(STD_INPUT_HANDLE);
 			}
-			return _stdin;
+			return _stdin();
 		}
 
 		// This function represents a safe way to obtain access to the
 		// Windows output stream. End users of the library should avoid this function.
 		inline static HANDLE& StandardOutput()
 		{
-			if (_stdout == nullptr)
+			if (_stdout() == nullptr)
 			{
-				_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
+				_stdout() = GetStdHandle(STD_OUTPUT_HANDLE);
 			}
-			return _stdout;
+			return _stdout();
 		}
 
 
@@ -98,24 +118,24 @@ namespace jinxes
 			CONSOLE_SCREEN_BUFFER_INFO info;
 			GetConsoleScreenBufferInfo(StandardOutput(), &info);
 
-			if (_cursor_at_home)
+			if (_cursor_at_home())
 			{
-				_cursor_home = info.dwCursorPosition;
+				_cursor_home() = info.dwCursorPosition;
 			}
 
 			SetConsoleCursorPosition(StandardOutput(), { x + info.srWindow.Left, y +info.srWindow.Top });
 			
-			_cursor_at_home = false;
+			_cursor_at_home() = false;
 		}
 
 		// A safe way to move the cursor back to its home position.
 		static void ReturnCursorToHome()
 		{
-			if (_cursor_at_home) return;
+			if (_cursor_at_home()) return;
 
-			SetConsoleCursorPosition(StandardOutput(), _cursor_home);
+			SetConsoleCursorPosition(StandardOutput(), _cursor_home());
 
-			_cursor_at_home = true;
+			_cursor_at_home() = true;
 		}
 
 		// A safe way to determine the width of the screen.
@@ -134,18 +154,4 @@ namespace jinxes
 			return info.dwSize.Y;
 		}
 	};
-
-	// Either a handle to the standard input or null
-	// if the handle hasn't been fetched yet.
-	HANDLE WinConsole::_stdin = nullptr;
-
-	// Either a handle to the standard output or null
-	// if the handle hasn't been fetched yet.
-	HANDLE WinConsole::_stdout = nullptr;
-
-	// The cursor starts at its home position.
-	bool WinConsole::_cursor_at_home = true;
-
-	// We'll assume the cursor starts at 0, 0. (It doesn't, but it doesn't matter)
-	COORD WinConsole::_cursor_home = { 0, 0 };
 }
