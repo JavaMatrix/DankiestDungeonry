@@ -107,6 +107,8 @@ game-win: You have defeated the final boss and cleared the game! Want more? You 
 
 reload-success: All files reloaded. Monster changes will not be reflected until you fight the next monster. Room changes will not be reflected until you move to a new room.
 
+hud-buff: \*** BUFFED ***
+
 command-scream: In DOS, nobody can hear you scream.
 command-xyzzy: Nothing happens.
 command-odysseus: Unfortunately, there are no cyclopes around to scare.

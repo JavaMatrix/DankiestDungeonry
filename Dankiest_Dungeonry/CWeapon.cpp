@@ -43,6 +43,7 @@ CWeapon::CWeapon(string name, int numDice, int diceSides) : _name(name), _damage
 	}
 
 	_description = _name + " " + I18n::Translate("at") + " " + _damage.description();
+	_value = numDice * diceSides;
 }
 
 CWeapon::CWeapon(int numDice, int diceSides) : _damage(numDice, diceSides)
@@ -61,7 +62,7 @@ CWeapon::CWeapon(int numDice, int diceSides) : _damage(numDice, diceSides)
 	_name = string(WEAPON_NAMES[nameChoice]);
 
 	_description = _name + " " + I18n::Translate("at") + " " + _damage.description();
-
+	_value = numDice * diceSides;
 }
 
 CWeapon::CWeapon()
@@ -97,17 +98,11 @@ CWeapon::CWeapon()
 	}
 
 	_description = _name + " " + I18n::Translate("at") + " " + _damage.description();
+	_value = numDice * diceSides;
 }
 
 bool CWeapon::use()
 {
 	cout << I18n::Translate("weapon-use") << endl;
 	return false;
-}
-
-int CWeapon::value()
-{
-	// Start at 0.
-	_value = _damage.roll();
-	return _value;
 }

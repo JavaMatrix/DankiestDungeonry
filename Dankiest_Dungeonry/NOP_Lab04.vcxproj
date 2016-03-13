@@ -110,6 +110,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="SpecialChars.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="WinConsole.h" />
     <ClInclude Include="YamlContainer.h" />

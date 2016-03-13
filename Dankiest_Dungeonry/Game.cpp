@@ -4,11 +4,15 @@
 #include <time.h>
 #include <Windows.h>
 #include <conio.h>
+#include <iomanip>
+#include <algorithm>
+
+#include "SimpleYaml.h"
+#include "Jinxes.h"
 
 #include "I18n.h"
 #include "CArmor.h"
 #include "Player.h"
-#include "SimpleYaml.h"
 #include "LootTables.h"
 #include "Utils.h"
 
@@ -16,6 +20,7 @@
 
 using namespace std;
 using namespace simpleyaml;
+using namespace jinxes;
 
 Game* Game::INSTANCE = nullptr;
 
@@ -71,19 +76,23 @@ void Game::dramaType(string message, int delay, bool newLine, double freq)
 	{
 		cout << message[i] << flush;
 
-		// make a cool beep noise for letters.
-		if (message[i] != ' ')
-			Beep((DWORD)freq, delay * 5);
-		else
-			SleepEx(delay * 5, true);
+		if (!_kbhit())
+		{
+			// make a cool beep noise for letters.
+			if (message[i] != ' ')
+				Beep((DWORD)freq, delay * 5);
+			else
+				SleepEx(delay * 5, true);
 
-		// Wait out the rest.
-		SleepEx(delay * 5, true);
+			// Wait out the rest.
+			SleepEx(delay * 5, true);
+		}
 	}
 
 	if (newLine)
 	{
-		SleepEx(500, true);
+		if (!_kbhit())
+			SleepEx(500, true);
 		cout << endl;
 	}
 }
@@ -112,8 +121,10 @@ bool starts_with(string original, string start)
 
 bool Game::loop()
 {
+
 	cout << "> ";
 
+	drawHUD();
 	char cAction[256];
 	cin.getline(cAction, 256);
 	string action(cAction);
@@ -161,6 +172,7 @@ bool Game::loop()
 					cout << string(str.length(), ' ');
 					cout << '\r';
 				}
+				drawHUD();
 			}
 		}
 
@@ -188,6 +200,8 @@ bool Game::loop()
 			{
 				fight();
 			}
+
+			drawHUD();
 		}
 
 		if (!_player.dead())
@@ -233,6 +247,7 @@ bool Game::loop()
 
 		vector<CGameItem*> dropped_items;
 
+		drawHUD();
 		char idx_char[256];
 		cin.getline(idx_char, 256);
 		string idx = string(idx_char);
@@ -310,6 +325,7 @@ bool Game::loop()
 		_player.print_inventory();
 		cout << I18n::Translate("use-prompt") << " ";
 
+		drawHUD();
 		char idx_char[256];
 		cin.getline(idx_char, 256);
 		string idx = string(idx_char);
@@ -336,6 +352,7 @@ bool Game::loop()
 		_player.print_inventory();
 		cout << I18n::Translate("equip-prompt") << " ";
 
+		drawHUD();
 		char idx_char[256];
 		cin.getline(idx_char, 256);
 		string idx = string(idx_char);
@@ -427,6 +444,9 @@ bool Game::loop()
 		cout << I18n::Translate("invalid-command") << endl;
 	}
 
+	// Redraw it.
+	drawHUD();
+
 	return true;
 }
 
@@ -442,7 +462,7 @@ void Game::fight()
 	}
 	else
 	{
-		int damage = _player.attack(); 
+		int damage = _player.attack();
 		if (_player.spell_buff)
 		{
 			damage *= CSpell::SPELL_DAMAGE_MUL;
@@ -451,7 +471,7 @@ void Game::fight()
 			_player.spell_buff = false;
 		}
 		damage = _current_monster.damage(damage);
-		
+
 		// Tell the player they hit.
 		if (damage > 0)
 		{
@@ -639,6 +659,7 @@ void Game::take()
 
 		cout << I18n::Translate("take-prompt") << " ";
 
+		drawHUD();
 		char take_what_char[256];
 		cin.getline(take_what_char, 256);
 		string take_what = string(take_what_char);
@@ -810,6 +831,7 @@ void Game::take()
 
 			if (!_player.inventory_full() && !_curr_room.ground_items().empty())
 			{
+				drawHUD();
 				cout << I18n::Translate("take-prompt") << " ";
 				cin.getline(take_what_char, 256);
 				take_what = string(take_what_char);
@@ -847,4 +869,67 @@ Game* Game::instance()
 Room* Game::current_room()
 {
 	return &_curr_room;
+}
+
+void Game::drawHUD()
+{
+	WinConsole::MoveCursorTo(0, 0);
+
+	// Start by drawing the outline.
+	set_color_all(Colors::GREY);
+	cout << SpecialChars::DoubleBorder::TopLeftCorner
+		<< string(SIZE_FULLSCREEN - 2, SpecialChars::DoubleBorder::HorizontalSide)
+		<< SpecialChars::DoubleBorder::TopRightCorner;
+	cout << SpecialChars::DoubleBorder::VerticalSide
+		<< string(SIZE_FULLSCREEN - 2, ' ')
+		<< SpecialChars::DoubleBorder::VerticalSide;
+	cout << SpecialChars::DoubleBorder::BottomLeftCorner
+		<< string(SIZE_FULLSCREEN - 2, SpecialChars::DoubleBorder::HorizontalSide)
+		<< SpecialChars::DoubleBorder::BottomRightCorner;
+	reset_color_all();
+
+	// Now draw the health bar.
+	WinConsole::MoveCursorTo(2, 1);
+	std::string health_text = "Health: " + to_string(_player.health()) + "/100";
+	for (int i = 0; i < 50; i++)
+	{
+		// Choose a background color.
+		Color background = Colors::RED;
+		if (i > _player.health() / 2)
+		{
+			background = Colors::BLACK;
+		}
+
+		// Print the health text or a quarter-filled box to create the health bar effect.
+		if (i < health_text.size())
+		{
+			cout << set_color(health_text[i], Colors::WHITE, background);
+		}
+		else
+		{
+			cout << set_color(SpecialChars::Boxes::QuarterFull, Colors::RED, background);
+		}
+	}
+
+	cout << "  ";
+
+	// Print some stats.
+	cout << "ATK: " << setw(5) << left << _player.weapon().value() << "  ";
+	cout << "DEF: " << setw(5) << left << _player.armor().value() << "  ";
+	cout << "POT: " << setw(5) << left << _player.count_potions() << "  ";
+	cout << "SPL: " << setw(5) << left << _player.count_spells() << "  ";
+
+	// Show the spell buff
+	if (_player.spell_buff)
+	{
+		// Show the buff.
+		cout << set_color(I18n::Translate("hud-buff"), Colors::BRIGHT_YELLOW);
+	}
+	else
+	{
+		// Or erase it.
+		cout << set_color(string(I18n::Translate("hud-buff").length(), SpecialChars::Boxes::Full), Colors::BLACK);
+	}
+
+	WinConsole::ReturnCursorToHome();
 }

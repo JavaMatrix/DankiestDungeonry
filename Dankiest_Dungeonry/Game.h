@@ -14,7 +14,7 @@ private:
 	void dramaType(string message, int delay = 100, bool newLine = true, double freq = 130.81);
 	void fight();
 	void take();
-	void drawHealthBar();
+	void drawHUD();
 public:
 	Game();
 	void start();

@@ -1,11 +1,12 @@
 #include "Room.h"
-#include "SimpleYaml.h"
-#include "I18n.h"
-#include "Utils.h"
 
 #include <string>
 #include <algorithm>
 #include <sstream>
+
+#include "SimpleYaml.h"
+#include "I18n.h"
+#include "Utils.h"
 
 using namespace simpleyaml;
 

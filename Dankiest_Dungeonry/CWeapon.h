@@ -27,5 +27,4 @@ public:
 	CWeapon(int numDice, int diceSides);
 	CWeapon();
 	bool use();
-	int value();
 };
