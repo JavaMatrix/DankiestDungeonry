@@ -1,3 +1,5 @@
+#pragma once
+
 namespace jinxes
 {
 	namespace SpecialChars
